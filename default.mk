@@ -23,8 +23,12 @@ REVDESC := $(shell test -e $(TOP).git && git describe --tags)
 EMACS      ?= emacs
 EMACS_ARGS ?=
 
-LOAD_PATH  ?= $(addprefix -L ../../,$(DEPS))
+PREFIX     := $(shell $(EMACS) -Q --batch --eval \
+              "(princ (expand-file-name \"../../../..\" data-directory))")
+
 LOAD_PATH  += -L .
+LOAD_PATH  += -L $(PREFIX)/share/emacs/site-lisp
+LOAD_PATH  += -L $(PREFIX)/share/emacs/site-lisp/compat
 
 ifndef ORG_LOAD_PATH
 ORG_LOAD_PATH  = -L ../../org/lisp
