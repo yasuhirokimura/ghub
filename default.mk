@@ -26,8 +26,12 @@ EMACS_ARGS ?= --eval "(progn \
   (put 'if-let 'byte-obsolete-info nil) \
   (put 'when-let 'byte-obsolete-info nil))"
 
-LOAD_PATH  ?= $(addprefix -L ../../,$(DEPS))
+PREFIX     := $(shell $(EMACS) -Q --batch --eval \
+              "(princ (expand-file-name \"../../../..\" data-directory))")
+
 LOAD_PATH  += -L .
+LOAD_PATH  += -L $(PREFIX)/share/emacs/site-lisp
+LOAD_PATH  += -L $(PREFIX)/share/emacs/site-lisp/compat
 
 ifndef ORG_LOAD_PATH
 ORG_LOAD_PATH  = -L ../../org/lisp
