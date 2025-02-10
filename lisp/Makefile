@@ -36,3 +36,7 @@ $(PKG)-autoloads.el: $(ELS)
                   (or (and #$$ (directory-file-name (file-name-directory #$$)))\
                       (car load-path)))))\
    nil t)"
+
+install-lisp: lisp
+	install -d $(PREFIX)/share/emacs/site-lisp/ghub
+	install -m 644 -p *.el *.elc $(PREFIX)/share/emacs/site-lisp/ghub
